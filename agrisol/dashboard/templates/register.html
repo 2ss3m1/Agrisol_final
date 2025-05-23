@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inscription</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #486c30;
+            --primary-hover: #486c30;
+            --secondary-color: #DDA15E;
+            --light-gray: #f8f9fa;
+            --dark-gray: #6c757d;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            width: 100%;
+            max-width: 500px;
+            padding: 40px;
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            transition: all 0.3s ease;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 28px;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-gray);
+            font-weight: 500;
+            font-size: 14px;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e9ecef;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: var(--border-radius);
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .login-link {
+            display: block;
+            text-align: center;
+            margin-top: 25px;
+            color: var(--dark-gray);
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .login-link:hover {
+            color: var(--secondary-color);
+        }
+
+        .form-errors {
+            margin-bottom: 20px;
+            color: red;
+            list-style: none;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Créez votre compte</h2>
+        <form method="POST">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <ul class="form-errors">
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                </ul>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="id_nom">Nom</label>
+                <input type="text" name="nom" id="id_nom" placeholder="Entrez votre nom" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_prenom">Prénom</label>
+                <input type="text" name="prenom" id="id_prenom" placeholder="Entrez votre prénom" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_telephone">Téléphone</label>
+                <input type="tel" name="telephone" id="id_telephone" placeholder="Entrez votre numéro" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_email">Email</label>
+                <input type="email" name="email" id="id_email" placeholder="Entrez votre email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_mot_de_passe">Mot de passe</label>
+                <input type="password" name="mot_de_passe" id="id_mot_de_passe" placeholder="Créez un mot de passe" required>
+            </div>
+
+            <button type="submit">S'inscrire</button>
+        </form>
+        <a href="{% url 'login' %}" class="login-link">Déjà un compte ? Se connecter</a>
+    </div>
+</body>
+</html>

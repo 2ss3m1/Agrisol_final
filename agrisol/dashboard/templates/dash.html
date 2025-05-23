@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Température</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-gauges@2.1.7/dist/gauge.min.js"></script>
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .container { display: flex; flex-wrap: wrap; gap: 30px; }
+        .panel { border: 1px solid #ddd; padding: 20px; border-radius: 5px; }
+        canvas { max-width: 100%; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="panel">
+            <h2>Graphique</h2>
+            <canvas id="chart" width="400" height="300"></canvas>
+        </div>
+        <div class="panel">
+            <h2>Jauge</h2>
+            <canvas id="gauge" width="200" height="150"></canvas>
+            <div id="value">25°C</div>
+        </div>
+    </div>
+
+    <script>
+        // Jauge
+        const gauge = new RadialGauge({
+            renderTo: 'gauge',
+            value: 25,
+            minValue: 0,
+            maxValue: 50,
+            units: "°C"
+        }).draw();
+
+        // Graphique
+        const chart = new Chart(
+            document.getElementById('chart'),
+            {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar'],
+                    datasets: [{
+                        label: 'Température',
+                        data: [20, 25, 22]
+                    }]
+                }
+            }
+        );
+
+        // Mise à jour aléatoire
+        setInterval(() => {
+            const newValue = Math.round(20 + Math.random() * 10);
+            gauge.value = newValue;
+            document.getElementById('value').textContent = newValue + '°C';
+            
+            chart.data.datasets[0].data = [
+                chart.data.datasets[0].data[1],
+                chart.data.datasets[0].data[2],
+                newValue
+            ];
+            chart.update();
+        }, 2000);
+    </script>
+</body>
+</html>

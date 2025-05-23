@@ -1,0 +1,243 @@
+
+    /* Variables */
+    :root {
+      --sidebar-width: 250px;
+      --sidebar-collapsed-width: 80px;
+      
+      --text-color: #ffffff;
+      --transition-speed: 0.3s;
+      --secondary: #858796;
+      --success: #1cc88a;
+      --info: #36b9cc;
+      --warning: #f6c23e;
+      --danger: #e74a3b;
+      --light: #f8f9fc;
+      --dark: #5a5c69;
+    }
+
+    body {
+      font-family: 'Nunito', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background-color: #d6fca7;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    
+
+    .toggle-btn {
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    /* Main Content */
+    .main-content {
+      margin-left: var(--sidebar-width);
+      padding: 1rem;
+      transition: margin-left var(--transition-speed) ease;
+      min-height: calc(100vh - var(--navbar-height));
+      margin-top: var(--navbar-height);
+    }
+
+  
+
+    /* Dashboard Styles */
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 30px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #e3e6f0;
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      margin: 0;
+      color: var(--dark);
+    }
+
+    .header h1 i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+
+    /* Metrics Cards */
+    .metrics-container {
+      margin-bottom: 30px;
+    }
+
+    .metric-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+      display: flex;
+      align-items: center;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .metric-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 0.5rem 1.5rem 0 rgba(58, 59, 69, 0.2);
+    }
+
+    .metric-icon {
+      font-size: 2rem;
+      margin-right: 20px;
+      color: var(--primary-color);
+    }
+
+    .metric-info h5 {
+      color: var(--secondary);
+      margin-bottom: 5px;
+      font-size: 0.9rem;
+    }
+
+    .metric-info h2 {
+      margin: 0;
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .metric-info h2 span {
+      font-size: 1rem;
+      color: var(--secondary);
+    }
+
+    /* Charts */
+    .chart-card {
+      background-color: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    }
+
+    .chart-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .chart-header h5 {
+      margin: 0;
+      color: var(--dark);
+    }
+
+    .chart-header h5 i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+
+    .chart-actions .btn {
+      padding: 2px 8px;
+      font-size: 0.7rem;
+      margin-left: 5px;
+    }
+
+    .chart-card canvas {
+      width: 100% !important;
+      height: 200px !important;
+      min-height: 200px;
+    }
+
+    /* Controls */
+    .controls-container {
+      padding: 5%;
+    }
+
+    .control-card {
+      background-color: #d6fca7;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.1);
+    }
+
+    .control-card h5 {
+      margin-bottom: 15px;
+      color: var(--dark);
+    }
+
+    .control-card h5 i {
+      margin-right: 10px;
+      color: var(--primary-color);
+    }
+
+    .btn-control {
+      padding: 8px 20px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      background-color: #f8f9fa;
+    }
+
+    .btn-control.btn-active {
+      background-color: var(--primary-color);
+      color: white;
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      color: var(--dark);
+    }
+
+    .status-indicator .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: #ddd;
+      margin-right: 8px;
+    }
+
+    .status-indicator.active .dot {
+      background-color: var(--success);
+    }
+    /* Style pour la carte des intervalles */
+.intervalles-card {
+  background-color: #f8f9fa;
+  border-left: 4px solid #1cc88a;
+  margin-bottom: 20px;
+}
+
+.intervalles-card .card-header {
+  background-color: rgba(28, 200, 138, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.intervalles-card p {
+  margin-bottom: 0.5rem;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 4px;
+}
+
+/* Style pour les valeurs dans les cartes de métriques */
+.optimal-value {
+  font-size: 0.9rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+.optimal-range {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 5px;
+}
+
+/* Style pour les valeurs hors intervalle */
+.value-warning {
+  color: #dc3545;
+  font-weight: bold;
+}

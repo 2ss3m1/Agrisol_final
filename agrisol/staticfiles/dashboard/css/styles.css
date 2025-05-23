@@ -1,0 +1,39 @@
+/* Variables globales */
+:root {
+    --primary-color: #486c30;
+    --secondary-color: #486c30;
+    --secondary-color: #4cc9f0;
+    --light-color: #f8f9fa;
+    --dark-color: #212529;
+    --sidebar-width: 250px;
+}
+
+/* Navbar commune */
+.navbar-agrisol {
+    background-color: var(--primary-color) !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    padding: 0.8rem 1rem;
+}
+
+.navbar-brand img {
+    height: 30px;
+}
+
+/* Sidebar commune */
+.sidebar-agrisol {
+    width: var(--sidebar-width);
+    background-color: var(--primary-dark);
+    color: white;
+    min-height: calc(100vh - 56px);
+    transition: all 0.3s;
+    position: sticky;
+    top: 56px;
+}
+
+/* Contenu principal */
+.main-content-agrisol {
+    flex: 1;
+    padding: 2rem;
+    background-color: var(--light-color);
+    min-height: calc(100vh - 56px);
+}

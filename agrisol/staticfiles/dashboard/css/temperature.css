@@ -1,0 +1,72 @@
+/* Main Layout */
+.main-content {
+    padding: 20px;
+    margin-left: 250px; /* Match sidebar width */
+    transition: margin 0.3s;
+}
+
+@media (max-width: 992px) {
+    .main-content {
+        margin-left: 0;
+    }
+}
+
+/* Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1) !important;
+}
+
+.card-header {
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+    font-weight: 600;
+}
+
+/* Gauge Styles */
+.gauge-value {
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+}
+
+#tempGauge {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Chart Styles */
+.chart-container {
+    position: relative;
+    height: 300px;
+    width: 100%;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .stats-card {
+        margin-bottom: 15px;
+    }
+    
+    .gauge-container {
+        margin-bottom: 30px;
+    }
+}
+
+/* Temperature-specific colors */
+.temp-optimal {
+    color: #5cb85c;
+}
+
+.temp-warning {
+    color: #f0ad4e;
+}
+
+.temp-danger {
+    color: #d9534f;
+}

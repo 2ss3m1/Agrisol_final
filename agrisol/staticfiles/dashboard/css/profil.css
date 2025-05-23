@@ -1,0 +1,122 @@
+/* Variables */
+
+:root {
+    --primary-color: #486c30;
+    --secondary-color: #486c30;
+    --light-gray: #d6fca7;
+    --dark-gray: #6c757d;
+}
+
+
+/* Structure principale */
+.main-container {
+    display: flex;
+    min-height: calc(100vh - 56px);
+}
+
+.main-content {
+    flex: 1;
+    padding: 2rem;
+    background-color: var(--light-gray);
+}
+
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* En-tête du profil */
+.profile-header {
+    position: relative;
+}
+
+.avatar-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    margin: 0 auto 1rem;
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 5px solid white;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.btn-upload-avatar {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* Cartes de profil */
+.profile-card {
+    background: #FeFAE0;
+    border-radius: 10px;
+    padding: 2rem;
+    box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+    margin-bottom: 1.5rem;
+}
+
+.card-title {
+    color: var(--primary-color);
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #eee;
+}
+
+/* Éléments de sécurité */
+.security-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.security-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 8px;
+    background-color: #f8f9fa;
+    text-decoration: none;
+    color: var(--dark-gray);
+    transition: all 0.2s;
+}
+
+.security-item:hover {
+    background-color: #e9ecef;
+    color: var(--secondary-color);
+}
+
+.security-item i:first-child {
+    margin-right: 1rem;
+    color: var(--primary-color);
+}
+
+.security-item i:last-child {
+    margin-left: auto;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .profile-container {
+        padding: 1rem;
+    }
+    
+    .profile-card {
+        padding: 1.5rem;
+    }
+}

@@ -1,0 +1,73 @@
+{% load static %}
+<aside class="sidebar" id="sidebar">
+  <button class="toggle-btn" id="toggleSidebar">
+   
+  </button>
+  
+  <div class="sidebar-content">
+    <ul class="nav flex-column mb-auto">
+      <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'profil' %}active{% endif %}" 
+           href="{% url 'profil' %}">
+          <i class="fas fa-user-circle"></i>
+          <span class="nav-link-text">Profil</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'alert' %}">
+          <i class="fas fa-history"></i>
+          <span class="nav-link-text">Historique</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link {% if request.resolver_match.url_name == 'dashboard_view' %}active{% endif %}" 
+           href="{% url 'dashboard' %}">
+          <i class="fas fa-tachometer-alt"></i>
+          <span class="nav-link-text">Dashboard</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'mes_cultures' %}">
+          <i class="fas fa-seedling"></i>
+          <span class="nav-link-text">Mes Cultures</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-cloud-sun"></i>
+          <span class="nav-link-text">Météo</span>
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a class="nav-link" href="#">
+          <i class="fas fa-chart-line"></i>
+          <span class="nav-link-text">Analyses</span>
+        </a>
+      </li>
+    </ul>
+
+    <div class="sidebar-footer">
+      <div class="text-center text-white small">
+        Connecté en tant que<br>
+        <strong>{{ agriculteur.email }}</strong>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<script>
+  document.getElementById('toggleSidebar').addEventListener('click', function() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('collapsed');
+    
+    // Change l'icône
+    const icon = this.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-chevron-right');
+  });
+</script>
