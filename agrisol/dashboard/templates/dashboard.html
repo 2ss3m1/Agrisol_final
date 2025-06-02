@@ -227,7 +227,9 @@
   </div>
 {% endif %}
 
-<div id="recommendations" class="mb-3"></div>
+<div id="recommendations" class="mb-3 alert alert-info" style="font-size:1.2em;">
+  Recommandation IA : <span id="ia-recommendation">(en attente)</span>
+</div>
 </div>
 </div> <!-- Fin du contenu principal -->
 
@@ -288,6 +290,30 @@
     irrigationOffBtn.classList.add('btn-active');
     irrigationOnBtn.classList.remove('btn-active');
   });
+
+  // === Affichage dynamique de la recommandation IA ===
+  // Adapte ce mapping selon tes actions IA
+  function getRecommendationMessage(code) {
+    switch (parseInt(code)) {
+      case 1: return "Irrigation recommandée : le sol est trop sec ou chaud.";
+      case 2: return "Ventilation recommandée : conditions trop humides ou chaudes.";
+      case 3: return "Correction du pH recommandée : valeur hors plage optimale.";
+      case 4: return "Ajustement de la lumière recommandé : intensité non optimale.";
+      case 5: return "Ajustement du CO₂ recommandé : concentration anormale.";
+      case 0: return "Aucune action nécessaire : conditions optimales.";
+      default: return "Recommandation IA : donnée inconnue.";
+    }
+  }
+
+  // WebSocket (adapter si besoin selon ton websocket.js)
+  if (window.socket) {
+    window.socket.onmessage = function(event) {
+      const data = JSON.parse(event.data);
+      if (data.recommendations !== undefined) {
+        document.getElementById('ia-recommendation').innerText = getRecommendationMessage(data.recommendations);
+      }
+    };
+  }
 </script>
 
 </body>

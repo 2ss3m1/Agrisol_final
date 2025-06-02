@@ -33,6 +33,19 @@ function createChart(ctx, label) {
   });
 }
 
+// Fonction pour traduire le code IA en message clair
+function getRecommendationMessage(code) {
+  switch (parseInt(code)) {
+    case 1: return "💧 Irrigation recommandée : le sol est trop sec ou chaud.";
+    case 2: return "💨 Ventilation recommandée : conditions trop humides ou chaudes.";
+    case 3: return "⚗️ Correction du pH recommandée : valeur hors plage optimale.";
+    case 4: return "💡 Ajustement de la lumière recommandé : intensité non optimale.";
+    case 5: return "🫧 Ajustement du CO₂ recommandé : concentration anormale.";
+    case 0: return "✅ Aucune action nécessaire : conditions optimales.";
+    default: return "ℹ️ Recommandation IA : donnée inconnue.";
+  }
+}
+
 // Initialisation des graphiques après chargement du DOM
 document.addEventListener('DOMContentLoaded', () => {
   charts.humidity = createChart(document.getElementById('chartH').getContext('2d'), 'Humidité');
@@ -60,7 +73,7 @@ document.addEventListener('DOMContentLoaded', () => {
 // Réception des données via WebSocket et mise à jour des graphiques et statuts
 socket.onmessage = function(event) {
   const data = JSON.parse(event.data);
-  const sensorData = data.sensor_data || data; // <-- Ajouté
+  const sensorData = data.sensor_data || data;
   const timestamp = new Date().toLocaleTimeString();
 
   if (sensorData.humidity !== undefined) {
@@ -143,15 +156,11 @@ socket.onmessage = function(event) {
     }
   }
 
-  const recommendations = data.recommendations || [];
-  const recDiv = document.getElementById('recommendations');
-  if (recDiv) {
-    recDiv.innerHTML = "";
-    recommendations.forEach(rec => {
-      const p = document.createElement('p');
-      p.className = "alert alert-info";
-      p.textContent = rec;
-      recDiv.appendChild(p);
-    });
+  // === Affichage dynamique de la recommandation IA ===
+  if (data.recommendations !== undefined) {
+    const recElem = document.getElementById('ia-recommendation');
+    if (recElem) {
+      recElem.textContent = getRecommendationMessage(data.recommendations);
+    }
   }
 };

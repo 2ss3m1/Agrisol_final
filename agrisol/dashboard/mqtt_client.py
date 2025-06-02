@@ -29,8 +29,22 @@ def on_message(client, userdata, msg):
     if agriculteur:
         alerts = check_alerts(agriculteur, data)
 
-    # IA recommendations
-    ai_recommendations = get_ai_recommendation(data)
+    # Correction ici : extraire chaque feature
+    humidite = data.get("humidity")
+    temperature = data.get("temperature")
+    ph = data.get("ph")
+    lumiere = data.get("lumiere")
+    co2 = data.get("co2")
+    niveau_eau = data.get("niveau_eau")
+
+    ai_recommendations = get_ai_recommendation(
+        humidite, temperature, ph, lumiere, co2, niveau_eau
+    )
+    # Ajoute cette ligne pour forcer la conversion
+    if hasattr(ai_recommendations, "item"):
+        ai_recommendations = ai_recommendations.item()
+    else:
+        ai_recommendations = int(ai_recommendations)
 
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(

@@ -2,7 +2,7 @@
 import joblib
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.model_selection import GridSearchCV, train_test_split
+from sklearn.model_selection import GridSearchCV, LeaveOneOut, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
@@ -41,7 +41,7 @@ for clf in [RandomForestClassifier(), SVC(probability=True)]:
     else:
         param_grid_clean.append({'clf': [clf], 'clf__C': [1, 10]})
 
-grid = GridSearchCV(pipe, param_grid_clean, cv=3)
+grid = GridSearchCV(pipe, param_grid_clean, cv=2)  # ou cv=LeaveOneOut()
 grid.fit(X, y)
 
 print("Best params:", grid.best_params_)

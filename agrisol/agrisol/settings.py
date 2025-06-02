@@ -100,7 +100,7 @@ DATABASES = {
 }
 ALERT_THRESHOLDS = {
     'humidity': {'min': 5.5, 'max': 90},
-    'ph': {'min': 3, 'max': 8},
+    'ph': {'min': 6, 'max': 8},
     'co2': {'min': 350, 'max': 600},
     'light': {'min': 100, 'max': 1000},
     'temperature': {'min': 18, 'max': 40},
