@@ -28,71 +28,74 @@
     </div>
   </nav>
 
-  <!-- Main Content -->
-<!-- Metrics Cards -->
-<div class="metrics-container mb-4">
-  <div class="row g-3">
-    <div class="col-md-4 col-sm-6">
-      <div class="metric-card humidity p-3 rounded shadow-sm">
-        <div class="metric-icon mb-2"><i class="fas fa-tint fa-2x"></i></div>
-        <div class="metric-info">
-          <h5>Humidité</h5>
-          <h2>{{ humidity }} <span>g/m³</span></h2>
-        </div>
-      </div>
-    </div>
+  <div style="display: flex;">
+    {% include 'includes/sidebar.html' %}
+    <main class="main-content" id="mainContent" style="width: 100%;">
+      <!-- Place all your dashboard content here (metrics, charts, controls, etc.) -->
+      <!-- Metrics Cards -->
+      <div class="metrics-container mb-4">
+        <div class="row g-3">
+          <div class="col-md-4 col-sm-6">
+            <div class="metric-card humidity p-3 rounded shadow-sm">
+              <div class="metric-icon mb-2"><i class="fas fa-tint fa-2x"></i></div>
+              <div class="metric-info">
+                <h5>Humidité</h5>
+                <h2>{{ humidity }} <span>g/m³</span></h2>
+              </div>
+            </div>
+          </div>
 
-    <div class="col-md-4 col-sm-6">
-      <div class="metric-card ph p-3 rounded shadow-sm">
-        <div class="metric-icon mb-2"><i class="fas fa-flask fa-2x"></i></div>
-        <div class="metric-info">
-          <h5>PH</h5>
-          <h2>{{ ph }}</h2>
-        </div>
-      </div>
-    </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="metric-card ph p-3 rounded shadow-sm">
+              <div class="metric-icon mb-2"><i class="fas fa-flask fa-2x"></i></div>
+              <div class="metric-info">
+                <h5>PH</h5>
+                <h2>{{ ph }}</h2>
+              </div>
+            </div>
+          </div>
 
-    <div class="col-md-4 col-sm-6">
-      <div class="metric-card co2 p-3 rounded shadow-sm">
-        <div class="metric-icon mb-2"><i class="fas fa-smog fa-2x"></i></div>
-        <div class="metric-info">
-          <h5>CO2</h5>
-          <h2>{{ co2 }} <span>g/m³</span></h2>
-        </div>
-      </div>
-    </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="metric-card co2 p-3 rounded shadow-sm">
+              <div class="metric-icon mb-2"><i class="fas fa-smog fa-2x"></i></div>
+              <div class="metric-info">
+                <h5>CO2</h5>
+                <h2>{{ co2 }} <span>g/m³</span></h2>
+              </div>
+            </div>
+          </div>
 
-    <div class="col-md-4 col-sm-6">
-      <div class="metric-card light p-3 rounded shadow-sm">
-        <div class="metric-icon mb-2"><i class="fas fa-sun fa-2x"></i></div>
-        <div class="metric-info">
-          <h5>Lumière</h5>
-          <h2>{{ lumiere }} <span>lux</span></h2>
-        </div>
-      </div>
-    </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="metric-card light p-3 rounded shadow-sm">
+              <div class="metric-icon mb-2"><i class="fas fa-sun fa-2x"></i></div>
+              <div class="metric-info">
+                <h5>Lumière</h5>
+                <h2>{{ lumiere }} <span>lux</span></h2>
+              </div>
+            </div>
+          </div>
 
-    <div class="col-md-4 col-sm-6">
-      <div class="metric-card temperature p-3 rounded shadow-sm">
-        <div class="metric-icon mb-2"><i class="fas fa-thermometer-half fa-2x"></i></div>
-        <div class="metric-info">
-          <h5>Température</h5>
-          <h2>{{ temperature }} <span>°C</span></h2>
-        </div>
-      </div>
-    </div>
+          <div class="col-md-4 col-sm-6">
+            <div class="metric-card temperature p-3 rounded shadow-sm">
+              <div class="metric-icon mb-2"><i class="fas fa-thermometer-half fa-2x"></i></div>
+              <div class="metric-info">
+                <h5>Température</h5>
+                <h2>{{ temperature }} <span>°C</span></h2>
+              </div>
+            </div>
+          </div>
 
-    <div class="col-md-4 col-sm-6">
-      <div class="metric-card water p-3 rounded shadow-sm">
-        <div class="metric-icon mb-2"><i class="fas fa-water fa-2x"></i></div>
-        <div class="metric-info">
-          <h5>Niveau d'eau</h5>
-          <h2>{{ N_eau }} <span>Pa</span></h2>
+          <div class="col-md-4 col-sm-6">
+            <div class="metric-card water p-3 rounded shadow-sm">
+              <div class="metric-icon mb-2"><i class="fas fa-water fa-2x"></i></div>
+              <div class="metric-info">
+                <h5>Niveau d'eau</h5>
+                <h2>{{ N_eau }} <span>Pa</span></h2>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
 
       <!-- Charts Section -->
       <div class="charts-container mb-4">
@@ -208,6 +211,23 @@
       <span>Irrigation active</span>
     </div>
   </div>
+
+  {% if recent_alerts %}
+  <div class="alert alert-warning" role="alert">
+    <strong>Alertes récentes :</strong>
+    <ul class="mb-0">
+      {% for alerte in recent_alerts %}
+        <li>
+          <strong>{{ alerte.get_type_alerte_display }}:</strong>
+          valeur = {{ alerte.valeur }} ({{ alerte.message }})
+          <span class="text-muted" style="font-size:0.85em;">[{{ alerte.created_at|date:"d/m/Y H:i" }}]</span>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+
+<div id="recommendations" class="mb-3"></div>
 </div>
 </div> <!-- Fin du contenu principal -->
 
@@ -219,8 +239,9 @@
   // Sidebar toggle
   document.getElementById('sidebarToggle').addEventListener('click', function () {
     const sidebar = document.getElementById('sidebar');
+    const mainContent = document.getElementById('mainContent');
     sidebar.classList.toggle('collapsed');
-
+    mainContent.classList.toggle('expanded');
     const icon = this.querySelector('i');
     icon.classList.toggle('fa-bars');
     icon.classList.toggle('fa-chevron-right');

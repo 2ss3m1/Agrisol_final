@@ -1,0 +1,12 @@
+Django>=4.2
+channels
+channels-redis
+djangorestframework
+graphene-django
+psycopg
+psycopg2-binary
+paho-mqtt
+scikit-learn
+joblib
+numpy
+whitenoise

@@ -17,11 +17,11 @@ urlpatterns = [
     
     
     path('dashboard/', views.dashboard_view, name='dashboard'),
-    path('dashboard/<int:culture_id>/', views.dashboard_view, name='dashboard'),
+    # path('dashboard/<int:culture_id>/', views.dashboard_view, name='dashboard'),
     
-    path('mes-cultures/', views.mes_cultures, name='mes_cultures'),
-    path('delete_culture/<int:culture_id>/', views.delete_culture, name='delete_culture'),
-    path('alert/', views.alert, name='alert'),
+    # path('mes-cultures/', views.mes_cultures, name='mes_cultures'),
+    # path('delete_culture/<int:culture_id>/', views.delete_culture, name='delete_culture'),
+    path('alert/', views.alert_history, name='alert'),
 ]
 
 if settings.DEBUG:

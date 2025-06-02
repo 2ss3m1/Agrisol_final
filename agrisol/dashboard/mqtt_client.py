@@ -1,27 +1,61 @@
 import json
+import os
 import threading
+
+import django
 import paho.mqtt.client as mqtt
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "agrisol.settings")
+# django.setup()
+
+from dashboard.models import Agriculteur
+from dashboard.utils import check_alerts
+
+from .recommendations import get_ai_recommendation
+
+
 def on_message(client, userdata, msg):
     data = json.loads(msg.payload.decode())
-    print(f"Received MQTT message: {data}")
+    token = data.get("token")
+    try:
+        agriculteur = Agriculteur.objects.get(mqtt_token=token)
+    except Agriculteur.DoesNotExist:
+        print("MQTT: Token invalide")
+        return
+
+    alerts = []
+    if agriculteur:
+        alerts = check_alerts(agriculteur, data)
+
+    # IA recommendations
+    ai_recommendations = get_ai_recommendation(data)
+
     channel_layer = get_channel_layer()
     async_to_sync(channel_layer.group_send)(
-        "sensor_data_group",  # le même nom de groupe que dans le consumer
+        "sensor_data_group",
         {
-        "type": "send_sensor_data",  # doit matcher le nom de la méthode dans le consumer
-        "message": data
+            "type": "send_sensor_data",
+            "message": {
+                "sensor_data": data,
+                "alerts": [
+                    {"type": a.type_alerte, "message": a.message, "valeur": a.valeur} for a in alerts
+                ],
+                "recommendations": ai_recommendations,
+            }
         }
-)
+    )
+
 
 def mqtt_thread():
     client = mqtt.Client()
-    client.connect("localhost", 1883, 60)
+    # client.tls_set(ca_certs="chemin/vers/ca.crt")  # Désactive TLS pour le test local
+    client.connect("localhost", 1883, 60)  # Port MQTT standard sans TLS
     client.subscribe("agrisol/data")
     client.on_message = on_message
     client.loop_forever()
+
 
 def start():
     thread = threading.Thread(target=mqtt_thread)

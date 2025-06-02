@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     # 'dashboard',
     'dashboard.apps.DashboardConfig',
     'channels',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -90,14 +91,21 @@ WSGI_APPLICATION = 'agrisol.wsgi.application'
 DATABASES = {
 "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "agrisol_db",
+        "NAME": "agrisol_db2",
         "USER":"user01",
         'PASSWORD':'user01',
         'HOST':'localhost',
         'PORT':5432
     }
 }
-
+ALERT_THRESHOLDS = {
+    'humidity': {'min': 5.5, 'max': 90},
+    'ph': {'min': 3, 'max': 8},
+    'co2': {'min': 350, 'max': 600},
+    'light': {'min': 100, 'max': 1000},
+    'temperature': {'min': 18, 'max': 40},
+    'waterLevel': {'min': 10, 'max': 400},
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -148,3 +156,15 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Or your SMTP server
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'oussama.hamdi@sesame.com.tn'
+EMAIL_HOST_PASSWORD = 'iuadxzoocsncgatf'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+GRAPHENE = {
+    "SCHEMA": "dashboard.schema.schema"
+}

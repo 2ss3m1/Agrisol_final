@@ -1,7 +1,7 @@
 {% load static %}
 <aside class="sidebar" id="sidebar">
   <button class="toggle-btn" id="toggleSidebar">
-   
+    <i class="fas fa-bars"></i>
   </button>
   
   <div class="sidebar-content">
@@ -15,7 +15,7 @@
       </li>
       
       <li class="nav-item">
-        <a class="nav-link" href="{% url 'alert' %}">
+        <a class="nav-link {% if request.resolver_match.url_name == 'alert' %}active{% endif %}" href="{% url 'alert' %}">
           <i class="fas fa-history"></i>
           <span class="nav-link-text">Historique</span>
         </a>
@@ -29,19 +29,19 @@
         </a>
       </li>
       
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a class="nav-link" href="{% url 'mes_cultures' %}">
           <i class="fas fa-seedling"></i>
           <span class="nav-link-text">Mes Cultures</span>
         </a>
-      </li>
+      </li> {% endcomment %}
       
-      <li class="nav-item">
+      {% comment %} <li class="nav-item">
         <a class="nav-link" href="#">
           <i class="fas fa-cloud-sun"></i>
           <span class="nav-link-text">Météo</span>
         </a>
-      </li>
+      </li> {% endcomment %}
       
       <li class="nav-item">
         <a class="nav-link" href="#">

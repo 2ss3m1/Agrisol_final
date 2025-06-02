@@ -1,5 +1,4 @@
-
-    /* Variables */
+/* Variables */
     :root {
       --sidebar-width: 250px;
       --sidebar-collapsed-width: 80px;
@@ -39,13 +38,11 @@
     /* Main Content */
     .main-content {
       margin-left: var(--sidebar-width);
-      padding: 1rem;
       transition: margin-left var(--transition-speed) ease;
-      min-height: calc(100vh - var(--navbar-height));
-      margin-top: var(--navbar-height);
     }
-
-  
+    .main-content.expanded {
+      margin-left: var(--sidebar-collapsed-width);
+    }
 
     /* Dashboard Styles */
     .header {

@@ -60,24 +60,26 @@ document.addEventListener('DOMContentLoaded', () => {
 // Réception des données via WebSocket et mise à jour des graphiques et statuts
 socket.onmessage = function(event) {
   const data = JSON.parse(event.data);
+  const sensorData = data.sensor_data || data; // <-- Ajouté
   const timestamp = new Date().toLocaleTimeString();
-  if (data.humidity !== undefined) {
-      document.querySelector('.metric-card.humidity h2').innerHTML = `${data.humidity} <span>g/m³</span>`;
+
+  if (sensorData.humidity !== undefined) {
+      document.querySelector('.metric-card.humidity h2').innerHTML = `${sensorData.humidity} <span>g/m³</span>`;
     }
-    if (data.ph !== undefined) {
-      document.querySelector('.metric-card.ph h2').textContent = data.ph;
+    if (sensorData.ph !== undefined) {
+      document.querySelector('.metric-card.ph h2').textContent = sensorData.ph;
     }
-    if (data.co2 !== undefined) {
-      document.querySelector('.metric-card.co2 h2').innerHTML = `${data.co2} <span>g/m³</span>`;
+    if (sensorData.co2 !== undefined) {
+      document.querySelector('.metric-card.co2 h2').innerHTML = `${sensorData.co2} <span>g/m³</span>`;
     }
-    if (data.light !== undefined) {
-      document.querySelector('.metric-card.light h2').innerHTML = `${data.light} <span>lux</span>`;
+    if (sensorData.light !== undefined) {
+      document.querySelector('.metric-card.light h2').innerHTML = `${sensorData.light} <span>lux</span>`;
     }
-    if (data.temperature !== undefined) {
-      document.querySelector('.metric-card.temperature h2').innerHTML = `${data.temperature} <span>°C</span>`;
+    if (sensorData.temperature !== undefined) {
+      document.querySelector('.metric-card.temperature h2').innerHTML = `${sensorData.temperature} <span>°C</span>`;
     }
-    if (data.waterLevel !== undefined) {
-      document.querySelector('.metric-card.water h2').innerHTML = `${data.waterLevel} <span>Pa</span>`;
+    if (sensorData.waterLevel !== undefined) {
+      document.querySelector('.metric-card.water h2').innerHTML = `${sensorData.waterLevel} <span>Pa</span>`;
     }
     
   // Fonction pour mettre à jour un graphique donné
@@ -94,12 +96,12 @@ socket.onmessage = function(event) {
   }
 
   // Mise à jour des graphiques si la donnée existe
-  if (data.temperature !== undefined) updateChart(charts.temperature, data.temperature);
-  if (data.humidity !== undefined) updateChart(charts.humidity, data.humidity);
-  if (data.waterLevel !== undefined) updateChart(charts.water, data.waterLevel);
-  if (data.ph !== undefined) updateChart(charts.ph, data.ph);
-  if (data.co2 !== undefined) updateChart(charts.co2, data.co2);
-  if (data.light !== undefined) updateChart(charts.light, data.light);
+  if (sensorData.temperature !== undefined) updateChart(charts.temperature, sensorData.temperature);
+  if (sensorData.humidity !== undefined) updateChart(charts.humidity, sensorData.humidity);
+  if (sensorData.waterLevel !== undefined) updateChart(charts.water, sensorData.waterLevel);
+  if (sensorData.ph !== undefined) updateChart(charts.ph, sensorData.ph);
+  if (sensorData.co2 !== undefined) updateChart(charts.co2, sensorData.co2);
+  if (sensorData.light !== undefined) updateChart(charts.light, sensorData.light);
 
   // Mise à jour statut ventilateur
   if (data.fan_status !== undefined) {
@@ -139,5 +141,17 @@ socket.onmessage = function(event) {
       irrigationOffBtn.classList.add('btn-active');
       irrigationOnBtn.classList.remove('btn-active');
     }
+  }
+
+  const recommendations = data.recommendations || [];
+  const recDiv = document.getElementById('recommendations');
+  if (recDiv) {
+    recDiv.innerHTML = "";
+    recommendations.forEach(rec => {
+      const p = document.createElement('p');
+      p.className = "alert alert-info";
+      p.textContent = rec;
+      recDiv.appendChild(p);
+    });
   }
 };
